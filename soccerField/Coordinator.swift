@@ -18,28 +18,26 @@ class Coordinator: NSObject, ARSessionDelegate {
     var arView: ARView?
     
     let playerPositions: [SIMD3<Float>] = [
-                SIMD3<Float>(0, 0.02, -0.3), // Goleiro
-                SIMD3<Float>(-0.15, 0.02, -0.15), // Zagueiro esquerdo
-                SIMD3<Float>( 0.15, 0.02,  -0.15), // Zagueiro direito
-                SIMD3<Float>(-0.05, 0.02,  -0.2), // Zagueiro central esquerdo
-                SIMD3<Float>( 0.05, 0.02,  -0.2), // Zagueiro central direito
-                SIMD3<Float>(-0.15, 0.02,  0.05), // Meio-campista esquerdo
-                SIMD3<Float>(-0.05, 0.02,  -0.05), // Meio-campista direita
-                SIMD3<Float>( 0.05, 0.02,  -0.05), // Meio-campista meio esquerda
-                SIMD3<Float>( 0.15, 0.02,  0.05), // Meio-campista meio direita
-                SIMD3<Float>( -0.08, 0.02, 0.2), // Atacante esquerdo
-                SIMD3<Float>( 0.08, 0.02,  0.2), // Atacante central
+                SIMD3<Float>(0, 0.005, -0.3), // Goleiro
+                SIMD3<Float>(-0.15, 0.005, -0.15), // Zagueiro esquerdo
+                SIMD3<Float>( 0.15, 0.005,  -0.15), // Zagueiro direito
+                SIMD3<Float>(-0.05, 0.005,  -0.2), // Zagueiro central esquerdo
+                SIMD3<Float>( 0.05, 0.005,  -0.2), // Zagueiro central direito
+                SIMD3<Float>(-0.15, 0.005,  0.05), // Meio-campista esquerdo
+                SIMD3<Float>(-0.05, 0.005,  -0.05), // Meio-campista direita
+                SIMD3<Float>( 0.05, 0.005,  -0.05), // Meio-campista meio esquerda
+                SIMD3<Float>( 0.15, 0.005,  0.05), // Meio-campista meio direita
+                SIMD3<Float>( -0.08, 0.005, 0.2), // Atacante esquerdo
+                SIMD3<Float>( 0.08, 0.005,  0.2), // Atacante central
             ]
     
     func setup() {
         
         guard let arView = arView else { return }
         
-        print("[debug] will create anchor")
         // Carregar o modelo do campo de futebol
         let anchor = AnchorEntity(plane: .horizontal)
         
-        print("[debug] will create model")
         guard let fieldModelEntity = try? ModelEntity.load(named: "soccer") else {
             fatalError("Erro to build modelEntity")
         }
@@ -47,34 +45,19 @@ class Coordinator: NSObject, ARSessionDelegate {
         // Ajustar a escala do campo
         fieldModelEntity.scale = SIMD3<Float>(repeating: 0.004)
         
-        print("[debug] will create model")
-        guard let dollModelEntity = try? ModelEntity.load(named: "flamengo") else {
-            fatalError("Erro to build modelEntity")
-        }
-        
-//        let rotation = simd_quatf(angle: -Float.pi/2, axis: SIMD3(x: 1, y: 0, z: 0))
-//        dollModelEntity.transform.rotation *= rotation
-        
-        
         // Adicionar o campo à âncora
         anchor.addChild(fieldModelEntity)
         
         // Ajustar a escala do campo
         
         for position in playerPositions {
-            print("[debug] will create model")
-            guard let dollModelEntity = try? ModelEntity.load(named: "flamengo") else {
+            guard let playerModelEntity = try? ModelEntity.load(named: "flamengo") else {
                 fatalError("Erro to build modelEntity")
             }
-            dollModelEntity.scale = SIMD3<Float>(repeating: 0.05)
-            
-            print("[debug] size", fieldModelEntity.transform.scale)
-            dollModelEntity.position = position
-            
-            print("[debug] fieldAnchor: ", fieldModelEntity.anchor)
-            anchor.addChild(dollModelEntity)
+            playerModelEntity.scale = SIMD3<Float>(repeating: 0.05)
+            playerModelEntity.position = position
+            fieldModelEntity.addChild(playerModelEntity, preservingWorldTransform: true)
         }
-        
         
         
         // Adicionar a âncora à cena
