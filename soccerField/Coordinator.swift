@@ -17,8 +17,9 @@ class Coordinator: NSObject, ARSessionDelegate {
     
     var arView: ARView?
     
+    let goalKeeperPosition = SIMD3<Float>(0, 0.005, -0.3) // Goleiro
+    
     let playerPositions: [SIMD3<Float>] = [
-                SIMD3<Float>(0, 0.005, -0.3), // Goleiro
                 SIMD3<Float>(-0.15, 0.005, -0.15), // Zagueiro esquerdo
                 SIMD3<Float>( 0.15, 0.005,  -0.15), // Zagueiro direito
                 SIMD3<Float>(-0.05, 0.005,  -0.2), // Zagueiro central esquerdo
@@ -50,8 +51,18 @@ class Coordinator: NSObject, ARSessionDelegate {
         
         // Ajustar a escala do campo
         
+        // Add goleiro
+        guard let playerModelEntity = try? ModelEntity.loadModel(named: "flamengo_goleiro") else {
+            fatalError("Erro to build modelEntity")
+        }
+        playerModelEntity.scale = SIMD3<Float>(repeating: 0.05)
+        playerModelEntity.position = goalKeeperPosition
+        fieldModelEntity.addChild(playerModelEntity, preservingWorldTransform: true)
+        
+        
+        // Add Players
         for position in playerPositions {
-            guard let playerModelEntity = try? ModelEntity.load(named: "flamengo") else {
+            guard let playerModelEntity = try? ModelEntity.loadModel(named: "flamengo") else {
                 fatalError("Erro to build modelEntity")
             }
             playerModelEntity.scale = SIMD3<Float>(repeating: 0.05)
@@ -83,6 +94,33 @@ class Coordinator: NSObject, ARSessionDelegate {
         default:
             break
         }
+    }
+    
+    @objc func touchModel(_ gesture: UITapGestureRecognizer) {
+        guard let arView = gesture.view as? ARView else { return }
+        let temp = gesture.location(in: gesture.view)
+        
+        let temp2 = arView.hitTest(temp)
+        
+        print("[debug] temp: ", temp)
+        print("[debug] temp2: ", temp2)
+        
+//        switch gesture.state {
+//        case .began:
+//            lastPanLocation = gesture.location(in: arView)
+//        case .changed:
+//            let currentPanLocation = gesture.location(in: arView)
+//            let deltaX = Float(currentPanLocation.x - lastPanLocation.x) * 0.01 // Fator de rotação horizontal
+//            
+//            if let entity = arView.scene.anchors.first?.children.first {
+//                let rotation = simd_quatf(angle: deltaX, axis: [0, 0, 0.5])
+//                entity.transform.rotation *= rotation
+//            }
+//            
+//            lastPanLocation = currentPanLocation
+//        default:
+//            break
+//        }
     }
     
     @objc func scaleModel(_ gesture: UIPinchGestureRecognizer) {

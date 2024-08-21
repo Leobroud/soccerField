@@ -31,6 +31,10 @@ struct ARViewContainer: UIViewRepresentable {
                                                     action: #selector(context.coordinator.scaleModel(_:)))
         arView.addGestureRecognizer(pinchGesture)
         
+        let tapGesture = UITapGestureRecognizer(target: context.coordinator,
+                                                    action: #selector(context.coordinator.touchModel(_:)))
+        arView.addGestureRecognizer(tapGesture)
+        
         return arView
     }
     

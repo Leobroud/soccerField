@@ -15,6 +15,8 @@
 		9850D37D2C421D3000194D4A /* soccer.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 9850D37C2C421D3000194D4A /* soccer.usdz */; };
 		E327192F2C763C5100C65E6C /* boneco.usdz in Resources */ = {isa = PBXBuildFile; fileRef = E327192E2C763C5100C65E6C /* boneco.usdz */; };
 		E32719332C76674500C65E6C /* flamengo.usdz in Resources */ = {isa = PBXBuildFile; fileRef = E32719322C76674500C65E6C /* flamengo.usdz */; };
+		E32719392C76763F00C65E6C /* HeaderSoccerball.usdz in Resources */ = {isa = PBXBuildFile; fileRef = E32719382C76763F00C65E6C /* HeaderSoccerball.usdz */; };
+		E327193D2C7681CF00C65E6C /* flamengo_goleiro.usdz in Resources */ = {isa = PBXBuildFile; fileRef = E327193C2C7681CF00C65E6C /* flamengo_goleiro.usdz */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +29,8 @@
 		9850D37C2C421D3000194D4A /* soccer.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = soccer.usdz; sourceTree = "<group>"; };
 		E327192E2C763C5100C65E6C /* boneco.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = boneco.usdz; sourceTree = "<group>"; };
 		E32719322C76674500C65E6C /* flamengo.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = flamengo.usdz; sourceTree = "<group>"; };
+		E32719382C76763F00C65E6C /* HeaderSoccerball.usdz */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.usdz; path = HeaderSoccerball.usdz; sourceTree = "<group>"; };
+		E327193C2C7681CF00C65E6C /* flamengo_goleiro.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = flamengo_goleiro.usdz; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +63,8 @@
 		9850D36B2C421C0C00194D4A /* soccerField */ = {
 			isa = PBXGroup;
 			children = (
+				E327193C2C7681CF00C65E6C /* flamengo_goleiro.usdz */,
+				E32719382C76763F00C65E6C /* HeaderSoccerball.usdz */,
 				E32719322C76674500C65E6C /* flamengo.usdz */,
 				9850D36C2C421C0C00194D4A /* AppDelegate.swift */,
 				9850D36E2C421C0C00194D4A /* ContentView.swift */,
@@ -141,6 +147,8 @@
 				E327192F2C763C5100C65E6C /* boneco.usdz in Resources */,
 				E32719332C76674500C65E6C /* flamengo.usdz in Resources */,
 				9850D37D2C421D3000194D4A /* soccer.usdz in Resources */,
+				E327193D2C7681CF00C65E6C /* flamengo_goleiro.usdz in Resources */,
+				E32719392C76763F00C65E6C /* HeaderSoccerball.usdz in Resources */,
 				9850D3712C421C0D00194D4A /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
