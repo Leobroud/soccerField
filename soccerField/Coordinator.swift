@@ -32,6 +32,9 @@ class Coordinator: NSObject, ARSessionDelegate {
                 SIMD3<Float>( 0.08, 0.005,  0.2), // Atacante central
             ]
     
+    var fieldEntity: ModelEntity?
+    var playersEntities: [(Int, ModelEntity)] = []
+    
     func setup() {
         
         guard let arView = arView else { return }
@@ -39,7 +42,7 @@ class Coordinator: NSObject, ARSessionDelegate {
         // Carregar o modelo do campo de futebol
         let anchor = AnchorEntity(plane: .horizontal)
         
-        guard let fieldModelEntity = try? ModelEntity.load(named: "soccer") else {
+        guard let fieldModelEntity = try? ModelEntity.loadModel(named: "soccer") else {
             fatalError("Erro to build modelEntity")
         }
         
@@ -48,6 +51,7 @@ class Coordinator: NSObject, ARSessionDelegate {
         
         // Adicionar o campo à âncora
         anchor.addChild(fieldModelEntity)
+        fieldEntity = fieldModelEntity
         
         // Ajustar a escala do campo
         
@@ -58,19 +62,21 @@ class Coordinator: NSObject, ARSessionDelegate {
         playerModelEntity.scale = SIMD3<Float>(repeating: 0.05)
         playerModelEntity.position = goalKeeperPosition
         fieldModelEntity.addChild(playerModelEntity, preservingWorldTransform: true)
-        
+        playersEntities.append((0, playerModelEntity))
         
         // Add Players
-        for position in playerPositions {
+        for index in 0..<playerPositions.count {
             guard let playerModelEntity = try? ModelEntity.loadModel(named: "flamengo") else {
                 fatalError("Erro to build modelEntity")
             }
             playerModelEntity.scale = SIMD3<Float>(repeating: 0.05)
-            playerModelEntity.position = position
+            playerModelEntity.position = playerPositions[index]
             fieldModelEntity.addChild(playerModelEntity, preservingWorldTransform: true)
+            playersEntities.append((index+1, playerModelEntity))
         }
         
         
+        anchor.generateCollisionShapes(recursive: true)
         // Adicionar a âncora à cena
         arView.scene.anchors.append(anchor)
     }
@@ -84,9 +90,8 @@ class Coordinator: NSObject, ARSessionDelegate {
         case .changed:
             let currentPanLocation = gesture.location(in: arView)
             let deltaX = Float(currentPanLocation.x - lastPanLocation.x) * 0.01 // Fator de rotação horizontal
-            
             if let entity = arView.scene.anchors.first?.children.first {
-                let rotation = simd_quatf(angle: deltaX, axis: [0, 0, 0.5])
+                let rotation = simd_quatf(angle: deltaX, axis: [0, 0, 1])
                 entity.transform.rotation *= rotation
             }
             
@@ -98,12 +103,20 @@ class Coordinator: NSObject, ARSessionDelegate {
     
     @objc func touchModel(_ gesture: UITapGestureRecognizer) {
         guard let arView = gesture.view as? ARView else { return }
-        let temp = gesture.location(in: gesture.view)
+        let hit = arView.hitTest(gesture.location(in: gesture.view))
+        print("[debug] hit: ", hit)
         
-        let temp2 = arView.hitTest(temp)
-        
-        print("[debug] temp: ", temp)
-        print("[debug] temp2: ", temp2)
+        if hit.count != 0 {
+            if hit.first?.entity == fieldEntity {
+                print("[debug] tocou no campo")
+            } else {
+                for player in playersEntities {
+                    if hit.first?.entity == player.1 {
+                        print("[debug] tocou no jogador ", player.0)
+                    }
+                }
+            }
+        }
         
 //        switch gesture.state {
 //        case .began:
