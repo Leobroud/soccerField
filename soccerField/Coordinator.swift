@@ -11,6 +11,13 @@ import RealityKit
 import Combine
 import UIKit
 
+struct PlayerModel {
+    let id: Int
+    let position: SIMD3<Float>
+    let positionName: String
+}
+
+
 class Coordinator: NSObject, ARSessionDelegate {
     
     private var lastPanLocation: CGPoint = .zero
@@ -31,9 +38,22 @@ class Coordinator: NSObject, ARSessionDelegate {
                 SIMD3<Float>( -0.08, 0.005, 0.2), // Atacante esquerdo
                 SIMD3<Float>( 0.08, 0.005,  0.2), // Atacante central
             ]
+    let playerPositionNames: [String] = [
+                "Zagueiro esquerdo",
+                "Zagueiro direito",
+                "Zagueiro central esquerdo",
+                "Zagueiro central direito",
+                "Meio-campista esquerdo",
+                "Meio-campista central esquerda",
+                "Meio-campista central direita",
+                "Meio-campista direita",
+                "Atacante esquerdo",
+                "Atacante direita"
+            ]
+    
     
     var fieldEntity: ModelEntity?
-    var playersEntities: [(Int, ModelEntity)] = []
+    var playersEntities: [(PlayerModel, ModelEntity)] = []
     
     func setup() {
         
@@ -62,7 +82,7 @@ class Coordinator: NSObject, ARSessionDelegate {
         playerModelEntity.scale = SIMD3<Float>(repeating: 0.05)
         playerModelEntity.position = goalKeeperPosition
         fieldModelEntity.addChild(playerModelEntity, preservingWorldTransform: true)
-        playersEntities.append((0, playerModelEntity))
+        playersEntities.append((PlayerModel(id: 0, position: goalKeeperPosition, positionName: "Goleiro"), playerModelEntity))
         
         // Add Players
         for index in 0..<playerPositions.count {
@@ -72,7 +92,7 @@ class Coordinator: NSObject, ARSessionDelegate {
             playerModelEntity.scale = SIMD3<Float>(repeating: 0.05)
             playerModelEntity.position = playerPositions[index]
             fieldModelEntity.addChild(playerModelEntity, preservingWorldTransform: true)
-            playersEntities.append((index+1, playerModelEntity))
+            playersEntities.append((PlayerModel(id: index+1, position: playerPositions[index], positionName: playerPositionNames[index]), playerModelEntity))
         }
         
         
@@ -104,7 +124,6 @@ class Coordinator: NSObject, ARSessionDelegate {
     @objc func touchModel(_ gesture: UITapGestureRecognizer) {
         guard let arView = gesture.view as? ARView else { return }
         let hit = arView.hitTest(gesture.location(in: gesture.view))
-        print("[debug] hit: ", hit)
         
         if hit.count != 0 {
             if hit.first?.entity == fieldEntity {
@@ -112,7 +131,18 @@ class Coordinator: NSObject, ARSessionDelegate {
             } else {
                 for player in playersEntities {
                     if hit.first?.entity == player.1 {
-                        print("[debug] tocou no jogador ", player.0)
+                        print("[debug] tocou no jogador ", player.0.id)
+                        let material: Material = SimpleMaterial(color: .systemPink, isMetallic: true)
+                        guard let cardModelEntity = try? ModelEntity(mesh: MeshResource.generateBox(size: 1.0), materials: [material]) else {
+                            fatalError("Erro to build modelEntity")
+                        }
+                        
+                        print("[debug] fieldEntity:", fieldEntity?.position)
+                        
+                        cardModelEntity.scale = SIMD3<Float>(repeating: 0.05)
+                        cardModelEntity.position = goalKeeperPosition
+                        fieldEntity?.addChild(cardModelEntity, preservingWorldTransform: true)
+                        
                     }
                 }
             }
