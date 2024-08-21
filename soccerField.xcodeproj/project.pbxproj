@@ -13,6 +13,8 @@
 		9850D3742C421C0D00194D4A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9850D3732C421C0D00194D4A /* Preview Assets.xcassets */; };
 		9850D37B2C421C9100194D4A /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9850D37A2C421C9100194D4A /* Coordinator.swift */; };
 		9850D37D2C421D3000194D4A /* soccer.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 9850D37C2C421D3000194D4A /* soccer.usdz */; };
+		E327192F2C763C5100C65E6C /* boneco.usdz in Resources */ = {isa = PBXBuildFile; fileRef = E327192E2C763C5100C65E6C /* boneco.usdz */; };
+		E32719332C76674500C65E6C /* flamengo.usdz in Resources */ = {isa = PBXBuildFile; fileRef = E32719322C76674500C65E6C /* flamengo.usdz */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +25,8 @@
 		9850D3732C421C0D00194D4A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		9850D37A2C421C9100194D4A /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		9850D37C2C421D3000194D4A /* soccer.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = soccer.usdz; sourceTree = "<group>"; };
+		E327192E2C763C5100C65E6C /* boneco.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = boneco.usdz; sourceTree = "<group>"; };
+		E32719322C76674500C65E6C /* flamengo.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = flamengo.usdz; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,10 +59,12 @@
 		9850D36B2C421C0C00194D4A /* soccerField */ = {
 			isa = PBXGroup;
 			children = (
+				E32719322C76674500C65E6C /* flamengo.usdz */,
 				9850D36C2C421C0C00194D4A /* AppDelegate.swift */,
 				9850D36E2C421C0C00194D4A /* ContentView.swift */,
 				9850D37A2C421C9100194D4A /* Coordinator.swift */,
 				9850D37C2C421D3000194D4A /* soccer.usdz */,
+				E327192E2C763C5100C65E6C /* boneco.usdz */,
 				9850D3702C421C0D00194D4A /* Assets.xcassets */,
 				9850D3722C421C0D00194D4A /* Preview Content */,
 			);
@@ -132,6 +138,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				9850D3742C421C0D00194D4A /* Preview Assets.xcassets in Resources */,
+				E327192F2C763C5100C65E6C /* boneco.usdz in Resources */,
+				E32719332C76674500C65E6C /* flamengo.usdz in Resources */,
 				9850D37D2C421D3000194D4A /* soccer.usdz in Resources */,
 				9850D3712C421C0D00194D4A /* Assets.xcassets in Resources */,
 			);

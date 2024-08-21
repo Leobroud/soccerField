@@ -17,22 +17,67 @@ class Coordinator: NSObject, ARSessionDelegate {
     
     var arView: ARView?
     
+    let playerPositions: [SIMD3<Float>] = [
+//                SIMD3<Float>(0, 0.02, 0),       // Centro do campo
+                SIMD3<Float>(0, 0.02, -0.3), // Goleiro
+                SIMD3<Float>(-0.15, 0.02, -0.2), // Zagueiro esquerdo
+                SIMD3<Float>( 0.15, 0.02,  -0.2), // Zagueiro direito
+                SIMD3<Float>(-0.05, 0.02,  -0.2), // Zagueiro central esquerdo
+                SIMD3<Float>( 0.05, 0.02,  -0.2), // Zagueiro central direito
+                SIMD3<Float>(-0.15, 0.02,  0), // Meio-campista esquerdo
+                SIMD3<Float>(-0.05, 0.02,  0), // Meio-campista direita
+                SIMD3<Float>( 0.05, 0.02,  0), // Meio-campista meio esquerda
+                SIMD3<Float>( 0.15, 0.02,  0), // Meio-campista meio direita
+                SIMD3<Float>( -0.1, 0.02, 0.15), // Atacante esquerdo
+                SIMD3<Float>( 0.1, 0.02,  0.15), // Atacante central
+//                SIMD3<Float>( 0.2, 0.02,  0.2), // Atacante direito
+            ]
+    
     func setup() {
         
         guard let arView = arView else { return }
         
+        print("[debug] will create anchor")
         // Carregar o modelo do campo de futebol
         let anchor = AnchorEntity(plane: .horizontal)
         
-        guard let modelEntity = try? ModelEntity.load(named: "soccer") else {
+        print("[debug] will create model")
+        guard let fieldModelEntity = try? ModelEntity.load(named: "soccer") else {
             fatalError("Erro to build modelEntity")
         }
         
         // Ajustar a escala do campo
-        modelEntity.scale = SIMD3<Float>(repeating: 0.004)
+        fieldModelEntity.scale = SIMD3<Float>(repeating: 0.004)
+        
+        print("[debug] will create model")
+        guard let dollModelEntity = try? ModelEntity.load(named: "flamengo") else {
+            fatalError("Erro to build modelEntity")
+        }
+        
+//        let rotation = simd_quatf(angle: -Float.pi/2, axis: SIMD3(x: 1, y: 0, z: 0))
+//        dollModelEntity.transform.rotation *= rotation
+        
         
         // Adicionar o campo à âncora
-        anchor.addChild(modelEntity)
+        anchor.addChild(fieldModelEntity)
+        
+        // Ajustar a escala do campo
+        
+        for position in playerPositions {
+            print("[debug] will create model")
+            guard let dollModelEntity = try? ModelEntity.load(named: "flamengo") else {
+                fatalError("Erro to build modelEntity")
+            }
+            dollModelEntity.scale = SIMD3<Float>(repeating: 0.06)
+            
+            print("[debug] size", fieldModelEntity.transform.scale)
+            dollModelEntity.position = position
+            
+            print("[debug] fieldAnchor: ", fieldModelEntity.anchor)
+            anchor.addChild(dollModelEntity)
+        }
+        
+        
         
         // Adicionar a âncora à cena
         arView.scene.anchors.append(anchor)
