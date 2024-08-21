@@ -18,19 +18,17 @@ class Coordinator: NSObject, ARSessionDelegate {
     var arView: ARView?
     
     let playerPositions: [SIMD3<Float>] = [
-//                SIMD3<Float>(0, 0.02, 0),       // Centro do campo
                 SIMD3<Float>(0, 0.02, -0.3), // Goleiro
-                SIMD3<Float>(-0.15, 0.02, -0.2), // Zagueiro esquerdo
-                SIMD3<Float>( 0.15, 0.02,  -0.2), // Zagueiro direito
+                SIMD3<Float>(-0.15, 0.02, -0.15), // Zagueiro esquerdo
+                SIMD3<Float>( 0.15, 0.02,  -0.15), // Zagueiro direito
                 SIMD3<Float>(-0.05, 0.02,  -0.2), // Zagueiro central esquerdo
                 SIMD3<Float>( 0.05, 0.02,  -0.2), // Zagueiro central direito
-                SIMD3<Float>(-0.15, 0.02,  0), // Meio-campista esquerdo
-                SIMD3<Float>(-0.05, 0.02,  0), // Meio-campista direita
-                SIMD3<Float>( 0.05, 0.02,  0), // Meio-campista meio esquerda
-                SIMD3<Float>( 0.15, 0.02,  0), // Meio-campista meio direita
-                SIMD3<Float>( -0.1, 0.02, 0.15), // Atacante esquerdo
-                SIMD3<Float>( 0.1, 0.02,  0.15), // Atacante central
-//                SIMD3<Float>( 0.2, 0.02,  0.2), // Atacante direito
+                SIMD3<Float>(-0.15, 0.02,  0.05), // Meio-campista esquerdo
+                SIMD3<Float>(-0.05, 0.02,  -0.05), // Meio-campista direita
+                SIMD3<Float>( 0.05, 0.02,  -0.05), // Meio-campista meio esquerda
+                SIMD3<Float>( 0.15, 0.02,  0.05), // Meio-campista meio direita
+                SIMD3<Float>( -0.08, 0.02, 0.2), // Atacante esquerdo
+                SIMD3<Float>( 0.08, 0.02,  0.2), // Atacante central
             ]
     
     func setup() {
@@ -68,7 +66,7 @@ class Coordinator: NSObject, ARSessionDelegate {
             guard let dollModelEntity = try? ModelEntity.load(named: "flamengo") else {
                 fatalError("Erro to build modelEntity")
             }
-            dollModelEntity.scale = SIMD3<Float>(repeating: 0.06)
+            dollModelEntity.scale = SIMD3<Float>(repeating: 0.05)
             
             print("[debug] size", fieldModelEntity.transform.scale)
             dollModelEntity.position = position
