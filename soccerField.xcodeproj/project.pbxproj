@@ -18,6 +18,7 @@
 		E32719392C76763F00C65E6C /* HeaderSoccerball.usdz in Resources */ = {isa = PBXBuildFile; fileRef = E32719382C76763F00C65E6C /* HeaderSoccerball.usdz */; };
 		E327193D2C7681CF00C65E6C /* flamengo_goleiro.usdz in Resources */ = {isa = PBXBuildFile; fileRef = E327193C2C7681CF00C65E6C /* flamengo_goleiro.usdz */; };
 		E32719412C77D4F200C65E6C /* yourewinner.usdz in Resources */ = {isa = PBXBuildFile; fileRef = E32719402C77D4F200C65E6C /* yourewinner.usdz */; };
+		E32719432C77D8CD00C65E6C /* betano.usdz in Resources */ = {isa = PBXBuildFile; fileRef = E32719422C77D8CD00C65E6C /* betano.usdz */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		E32719382C76763F00C65E6C /* HeaderSoccerball.usdz */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.usdz; path = HeaderSoccerball.usdz; sourceTree = "<group>"; };
 		E327193C2C7681CF00C65E6C /* flamengo_goleiro.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = flamengo_goleiro.usdz; sourceTree = "<group>"; };
 		E32719402C77D4F200C65E6C /* yourewinner.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = yourewinner.usdz; sourceTree = "<group>"; };
+		E32719422C77D8CD00C65E6C /* betano.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = betano.usdz; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +67,7 @@
 		9850D36B2C421C0C00194D4A /* soccerField */ = {
 			isa = PBXGroup;
 			children = (
+				E32719422C77D8CD00C65E6C /* betano.usdz */,
 				E32719402C77D4F200C65E6C /* yourewinner.usdz */,
 				E327193C2C7681CF00C65E6C /* flamengo_goleiro.usdz */,
 				E32719382C76763F00C65E6C /* HeaderSoccerball.usdz */,
@@ -148,6 +151,7 @@
 			files = (
 				9850D3742C421C0D00194D4A /* Preview Assets.xcassets in Resources */,
 				E327192F2C763C5100C65E6C /* boneco.usdz in Resources */,
+				E32719432C77D8CD00C65E6C /* betano.usdz in Resources */,
 				E32719332C76674500C65E6C /* flamengo.usdz in Resources */,
 				E32719412C77D4F200C65E6C /* yourewinner.usdz in Resources */,
 				9850D37D2C421D3000194D4A /* soccer.usdz in Resources */,
