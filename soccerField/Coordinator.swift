@@ -25,18 +25,18 @@ class Coordinator: NSObject, ARSessionDelegate {
     
     var arView: ARView?
     
-    let goleiro = PlayerModel(id: 0, position: SIMD3<Float>(0, 0.005, -0.3), positionName: "Goleiro", name: "Diego Alves")
+    let goleiro = PlayerModel(id: 0, position: SIMD3<Float>(0, 0.005, -0.3), positionName: "Goleiro", name: "Rossi")
     let players: [PlayerModel] = [
-        PlayerModel(id: 1, position: SIMD3<Float>(-0.15, 0.005, -0.15), positionName: "Zagueiro esquerdo", name: "Ayrton Lucas"),
+        PlayerModel(id: 1, position: SIMD3<Float>(-0.15, 0.005, -0.15), positionName: "Zagueiro esquerdo", name: "Ayrton L."),
         PlayerModel(id: 2, position: SIMD3<Float>(0.15, 0.005, -0.15), positionName: "Zagueiro direito", name: "Varela"),
-        PlayerModel(id: 3, position: SIMD3<Float>(-0.05, 0.005, -0.2), positionName: "Zagueiro central esquerdo", name: "Léo Pereira"),
-        PlayerModel(id: 4, position: SIMD3<Float>(0.05, 0.005, -0.2), positionName: "Zagueiro central direito", name: "Fabricio Bruno"),
+        PlayerModel(id: 3, position: SIMD3<Float>(-0.05, 0.005, -0.2), positionName: "Zagueiro central esquerdo", name: "Léo P."),
+        PlayerModel(id: 4, position: SIMD3<Float>(0.05, 0.005, -0.2), positionName: "Zagueiro central direito", name: "Fabricio"),
         PlayerModel(id: 5, position: SIMD3<Float>(-0.15, 0.005, 0.05), positionName: "Meio-campista esquerdo", name: "Cebolinha"),
-        PlayerModel(id: 6, position: SIMD3<Float>(-0.05, 0.005, -0.05), positionName: "Meio-campista central esquerda", name: "De la Cruz"),
+        PlayerModel(id: 6, position: SIMD3<Float>(-0.05, 0.005, -0.05), positionName: "Meio-campista central esquerda", name: "DelaCruz"),
         PlayerModel(id: 7, position: SIMD3<Float>(0.05, 0.005, -0.05), positionName: "Meio-campista central direita", name: "Pulgar"),
-        PlayerModel(id: 8, position: SIMD3<Float>(0.15, 0.005, 0.05), positionName: "Meio-campista direita", name: "Luiz Araújo"),
+        PlayerModel(id: 8, position: SIMD3<Float>(0.15, 0.005, 0.05), positionName: "Meio-campista direita", name: "Luiz A."),
         PlayerModel(id: 9, position: SIMD3<Float>(-0.08, 0.005, 0.2), positionName: "Atacante esquerdo", name: "Pedro"),
-        PlayerModel(id: 10, position: SIMD3<Float>(0.08, 0.005, 0.2), positionName: "Atacante central", name: "Arrascaeta")
+        PlayerModel(id: 10, position: SIMD3<Float>(0.08, 0.005, 0.2), positionName: "Atacante central", name: "Arrasca")
     ]
     
     var lastCardEntity: ModelEntity?
@@ -170,8 +170,8 @@ extension Coordinator {
         field.addChild(playerModelEntity, preservingWorldTransform: true)
         playersEntities.append((player, playerModelEntity))
         
-        let material: Material = SimpleMaterial(color: .red, isMetallic: false)
-        guard let cardModelEntity = try? ModelEntity(mesh: MeshResource.generateText(player.name, font: .systemFont(ofSize: 14), alignment: .center), materials: [material]) else {
+        let material: Material = SimpleMaterial(color: .black, isMetallic: false)
+        guard let cardModelEntity = try? ModelEntity(mesh: MeshResource.generateText(player.name, font: .systemFont(ofSize: 7, weight: .bold), alignment: .center), materials: [material]) else {
             fatalError("Erro to build modelEntity")
         }
         
