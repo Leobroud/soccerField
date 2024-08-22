@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		981C8D4C2C77E63F002FA634 /* arrascaeta.png in Resources */ = {isa = PBXBuildFile; fileRef = 981C8D4B2C77E63F002FA634 /* arrascaeta.png */; };
 		9850D36D2C421C0C00194D4A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9850D36C2C421C0C00194D4A /* AppDelegate.swift */; };
 		9850D36F2C421C0C00194D4A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9850D36E2C421C0C00194D4A /* ContentView.swift */; };
 		9850D3712C421C0D00194D4A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9850D3702C421C0D00194D4A /* Assets.xcassets */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		981C8D4B2C77E63F002FA634 /* arrascaeta.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrascaeta.png; sourceTree = "<group>"; };
 		9850D3692C421C0C00194D4A /* soccerField.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = soccerField.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9850D36C2C421C0C00194D4A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9850D36E2C421C0C00194D4A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -72,6 +74,7 @@
 				E327193C2C7681CF00C65E6C /* flamengo_goleiro.usdz */,
 				E32719382C76763F00C65E6C /* HeaderSoccerball.usdz */,
 				E32719322C76674500C65E6C /* flamengo.usdz */,
+				981C8D4B2C77E63F002FA634 /* arrascaeta.png */,
 				9850D36C2C421C0C00194D4A /* AppDelegate.swift */,
 				9850D36E2C421C0C00194D4A /* ContentView.swift */,
 				9850D37A2C421C9100194D4A /* Coordinator.swift */,
@@ -157,6 +160,7 @@
 				9850D37D2C421D3000194D4A /* soccer.usdz in Resources */,
 				E327193D2C7681CF00C65E6C /* flamengo_goleiro.usdz in Resources */,
 				E32719392C76763F00C65E6C /* HeaderSoccerball.usdz in Resources */,
+				981C8D4C2C77E63F002FA634 /* arrascaeta.png in Resources */,
 				9850D3712C421C0D00194D4A /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

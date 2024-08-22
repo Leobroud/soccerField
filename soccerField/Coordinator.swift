@@ -104,35 +104,43 @@ class Coordinator: NSObject, ARSessionDelegate {
     @objc func touchModel(_ gesture: UITapGestureRecognizer) {
         guard let arView = gesture.view as? ARView else { return }
         let hit = arView.hitTest(gesture.location(in: gesture.view))
-        
+         
         if hit.count != 0 {
-            if hit.first?.entity == fieldEntity {
-                print("[debug] tocou no campo")
+          if hit.first?.entity == fieldEntity {
+            print("[debug] tocou no campo")
+            lastCardEntity?.removeFromParent()
+            lastCardEntity = nil
+          } else {
+            for player in playersEntities {
+              if hit.first?.entity == player.1 {
+                print("[debug] tocou no jogador ", player.0.id)
+                 
                 lastCardEntity?.removeFromParent()
-                lastCardEntity = nil
-            } else {
-                for player in playersEntities {
-                    if hit.first?.entity == player.1 {
-                        print("[debug] tocou no jogador ", player.0.id)
-                        
-                        lastCardEntity?.removeFromParent()
-                        
-                        let material: Material = SimpleMaterial(color: .systemPink, isMetallic: true)
-                        guard let cardModelEntity = try? ModelEntity(mesh: MeshResource.generateBox(size: 1.0), materials: [material]) else {
-                            fatalError("Erro ao construir o modelEntity")
-                        }
-                        
-                        cardModelEntity.scale = SIMD3<Float>(repeating: 0.5)
-                        cardModelEntity.position = SIMD3<Float>(-0.015, 0.03, 2.5)
-                        
-                        player.1.addChild(cardModelEntity, preservingWorldTransform: false)
-                        
-                        lastCardEntity = cardModelEntity
-                    }
+                 
+                // Carregar a textura a partir da imagem
+                guard let texture = try? TextureResource.load(named: "arrascaeta") else {
+                  fatalError("Erro ao carregar a textura")
                 }
+                 
+                var material = UnlitMaterial()
+                material.baseColor = MaterialColorParameter.texture(texture)
+                material.blending = .transparent(opacity: 1.0)
+              
+                let mesh = MeshResource.generatePlane(width: 2, height: 2)
+                let cardModelEntity = ModelEntity(mesh: mesh, materials: [material])
+                 
+                cardModelEntity.orientation = simd_quatf(angle: .pi / 2, axis: SIMD3<Float>(1, 0, 0))
+                cardModelEntity.scale = SIMD3<Float>(repeating: 0.8)
+                cardModelEntity.position = SIMD3<Float>(-0.015, 0.03, 2.7)
+                 
+                player.1.addChild(cardModelEntity, preservingWorldTransform: false)
+                 
+                lastCardEntity = cardModelEntity
+              }
             }
+          }
         }
-    }
+      }
     
     @objc func scaleModel(_ gesture: UIPinchGestureRecognizer) {
         guard let arView = gesture.view as? ARView else { return }
