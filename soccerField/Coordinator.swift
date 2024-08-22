@@ -39,6 +39,7 @@ class Coordinator: NSObject, ARSessionDelegate {
         PlayerModel(id: 10, position: SIMD3<Float>(0.08, 0.005, 0.2), positionName: "Atacante central", name: "Arrascaeta")
     ]
     
+    var lastCardEntity: ModelEntity?
     var fieldEntity: ModelEntity?
     var playersEntities: [(PlayerModel, ModelEntity)] = []
     var anchor: AnchorEntity?
@@ -101,25 +102,28 @@ class Coordinator: NSObject, ARSessionDelegate {
         if hit.count != 0 {
             if hit.first?.entity == fieldEntity {
                 print("[debug] tocou no campo")
+                lastCardEntity?.removeFromParent()
+                lastCardEntity = nil
             } else {
-                
-//                for player in playersEntities {
-//                    if hit.first?.entity == player.1 {
-//                        print("[debug] tocou no jogador ", player.0.id)
-//                        let material: Material = SimpleMaterial(color: .systemPink, isMetallic: true)
-//                        guard let cardModelEntity = try? ModelEntity(mesh: MeshResource.generateBox(size: 1.0), materials: [material]) else {
-//                            fatalError("Erro to build modelEntity")
-//                        }
-//                        
-//                        
-//                        print("[debug] fieldEntity:", arView.scene.anchors)
-//                        
-//                        cardModelEntity.scale = SIMD3<Float>(repeating: 0.05)
-//                        cardModelEntity.position = goalKeeperPosition
-//                        self.anchor?.addChild(cardModelEntity, preservingWorldTransform: true)
-//                        
-//                    }
-//                }
+                for player in playersEntities {
+                    if hit.first?.entity == player.1 {
+                        print("[debug] tocou no jogador ", player.0.id)
+                        
+                        lastCardEntity?.removeFromParent()
+                        
+                        let material: Material = SimpleMaterial(color: .systemPink, isMetallic: true)
+                        guard let cardModelEntity = try? ModelEntity(mesh: MeshResource.generateBox(size: 1.0), materials: [material]) else {
+                            fatalError("Erro ao construir o modelEntity")
+                        }
+                        
+                        cardModelEntity.scale = SIMD3<Float>(repeating: 0.5)
+                        cardModelEntity.position = SIMD3<Float>(-0.015, 0.03, 2.5)
+                        
+                        player.1.addChild(cardModelEntity, preservingWorldTransform: false)
+                        
+                        lastCardEntity = cardModelEntity
+                    }
+                }
             }
         }
     }
