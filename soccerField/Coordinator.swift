@@ -62,6 +62,20 @@ class Coordinator: NSObject, ARSessionDelegate {
         self.anchor?.addChild(fieldModelEntity)
         fieldEntity = fieldModelEntity
         
+        guard let trophyEntity = try? ModelEntity.loadModel(named: "yourewinner") else {
+            fatalError("Erro to build modelEntity")
+        }
+        
+        // Ajustar a escala do campo
+        trophyEntity.scale = SIMD3<Float>(repeating: 0.07)
+        let rotation = simd_quatf(angle: -Float.pi/2, axis: SIMD3(x: 1, y: 0, z: 0))
+        let position = SIMD3<Float>(0, 0.005, -0.6)
+        trophyEntity.transform.rotation = rotation
+        trophyEntity.position = position
+        
+        // Adicionar o campo à âncora
+        self.anchor?.addChild(trophyEntity)
+        
         // Add goleiro
         createPlayer(goleiro, field: fieldModelEntity)
         
